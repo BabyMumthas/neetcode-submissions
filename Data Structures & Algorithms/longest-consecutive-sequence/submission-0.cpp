@@ -1,0 +1,33 @@
+#include <vector>
+#include <unordered_set>
+using namespace std;
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+
+        unordered_set<int> s(nums.begin(), nums.end());
+
+        int longest = 0;
+
+        for (int num : s) {
+
+            // Check if this is the start of a sequence
+            if (s.find(num - 1) == s.end()) {
+
+                int currentNum = num;
+                int currentLength = 1;
+
+                // Count consecutive numbers
+                while (s.find(currentNum + 1) != s.end()) {
+                    currentNum++;
+                    currentLength++;
+                }
+
+                longest = max(longest, currentLength);
+            }
+        }
+
+        return longest;
+    }
+};
